@@ -13,6 +13,7 @@ public class PassPref {
     private static final String PREF_NAME = "Locked";
     private static final String PASSWORD = "password";
     private static final String IS_PASSWORD_SET="IsPasswordSet";
+    private static final String IS_FIRST_TIME="IsFirstTime";
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -42,4 +43,14 @@ public class PassPref {
         editor.commit();
     }
 
+    boolean getIsFirstTime()
+    {
+        return pref.getBoolean(IS_FIRST_TIME,true);
+    }
+
+    void setIsFirstTime(boolean isFirstTime)
+    {
+        editor.putBoolean(IS_FIRST_TIME,isFirstTime);
+        editor.commit();
+    }
 }

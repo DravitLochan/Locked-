@@ -1,5 +1,7 @@
 package lock.com.locked;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -26,12 +28,20 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     PassPref passPref;
     Button buttonChangePassword;
+    NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+        notificationManager = (NotificationManager) getSystemService(context.NOTIFICATION_SERVICE);
+        Notification notify = new Notification.Builder(context).setContentTitle("LOCKED?")
+                .setContentText("Unlocked").setContentTitle("subject").setSmallIcon(R.mipmap.ic_launcher).setOngoing(true)
+                .build();
+        notify.flags |= Notification.FLAG_AUTO_CANCEL;
+        notify.flags |= Notification.FLAG_NO_CLEAR;
+        notificationManager.notify(0,notify);
         buttonChangePassword = (Button) findViewById(R.id.buttonChangePassword);
         passPref = new PassPref(context);
         if (passPref.getIsPasswordSet() == false) {
